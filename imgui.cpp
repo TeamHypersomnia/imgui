@@ -7724,8 +7724,10 @@ bool ImGui::CloseButton(ImGuiID id, const ImVec2& pos, float radius)
 
     // Render
     const ImU32 col = GetColorU32((held && hovered) ? ImGuiCol_CloseButtonActive : hovered ? ImGuiCol_CloseButtonHovered : ImGuiCol_CloseButton);
+
     ImVec2 center = bb.GetCenter();
-    window->DrawList->AddCircleFilled(center, ImMax(2.0f, radius), col, 12);
+	const auto r = ImMax(2.0f, radius);
+    window->DrawList->AddRectFilled(center - ImVec2(r, r), center + ImVec2(r, r), col);
 
     const float cross_extent = (radius * 0.7071f) - 1.0f;
     if (hovered)
