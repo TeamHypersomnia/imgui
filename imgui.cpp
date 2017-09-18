@@ -2091,12 +2091,13 @@ void ImGui::ClearActiveID()
     SetActiveID(0, NULL);
 }
 
-void ImGui::SetHoveredID(ImGuiID id)
+void ImGui::SetHoveredID(ImGuiID id, bool hand_cursor)
 {
     ImGuiContext& g = *GImGui;
     g.HoveredId = id;
     g.HoveredIdAllowOverlap = false;
     g.HoveredIdTimer = (id != 0 && g.HoveredIdPreviousFrame == id) ? (g.HoveredIdTimer + g.IO.DeltaTime) : 0.0f;
+	g.HoveredIdHandCursor = hand_cursor;
 }
 
 ImGuiID ImGui::GetHoveredID()
@@ -7532,6 +7533,8 @@ bool ImGui::ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool
     // Mouse
     if (hovered)
     {
+		SetHoveredID(id, true);
+
         if (!(flags & ImGuiButtonFlags_NoKeyModifiers) || (!g.IO.KeyCtrl && !g.IO.KeyShift && !g.IO.KeyAlt))
         {
             //                        | CLICKING        | HOLDING with ImGuiButtonFlags_Repeat

@@ -591,6 +591,7 @@ struct ImGuiContext
     ImGuiWindow*            HoveredWindow;                      // Will catch mouse inputs
     ImGuiWindow*            HoveredRootWindow;                  // Will catch mouse inputs (for focus/move only)
     ImGuiID                 HoveredId;                          // Hovered widget
+	bool                    HoveredIdHandCursor;
     bool                    HoveredIdAllowOverlap;
     ImGuiID                 HoveredIdPreviousFrame;
     float                   HoveredIdTimer;
@@ -724,6 +725,7 @@ struct ImGuiContext
         HoveredWindow = NULL;
         HoveredRootWindow = NULL;
         HoveredId = 0;
+		HoveredIdHandCursor = false;
         HoveredIdAllowOverlap = false;
         HoveredIdPreviousFrame = 0;
         HoveredIdTimer = 0.0f;
@@ -1039,7 +1041,7 @@ namespace ImGui
     IMGUI_API ImGuiID       GetActiveID();
     IMGUI_API void          SetFocusID(ImGuiID id, ImGuiWindow* window);
     IMGUI_API void          ClearActiveID();
-    IMGUI_API void          SetHoveredID(ImGuiID id);
+    IMGUI_API void          SetHoveredID(ImGuiID id, bool hand_cursor = false);
     IMGUI_API ImGuiID       GetHoveredID();
     IMGUI_API void          KeepAliveID(ImGuiID id);
 
